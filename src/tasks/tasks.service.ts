@@ -13,7 +13,7 @@ import { Task } from './task.entity.js';
 export class TasksService {
 
   constructor(
-    @InjectRepository(TasksRepository)
+    @InjectRepository(Task)
     private tasksRepository: TasksRepository,
   ) { }
 
@@ -27,6 +27,18 @@ export class TasksService {
     return found;
   }
 
+  async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+    const { title, description } = createTaskDto;
+
+    const task = this.tasksRepository.create({
+      title,
+      description,
+      status: TaskStatus.OPEN,
+    })
+
+    await this.tasksRepository.save(task);
+    return task;
+  }
   // getAllTasks(): Task[] {
   //   return this.tasks;
   // }
