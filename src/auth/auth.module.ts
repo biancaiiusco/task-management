@@ -11,4 +11,4 @@ import { User } from './user.entity';
   providers: [AuthService, UsersRepository],
   exports: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule {}

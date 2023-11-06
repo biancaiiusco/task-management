@@ -5,15 +5,15 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UsersRepository extends Repository<User> {
-    constructor(private dataSource: DataSource) {
-        super(User, dataSource.createEntityManager());
-    }
+  constructor(private dataSource: DataSource) {
+    super(User, dataSource.createEntityManager());
+  }
 
-    async createUser(authCredentialsDto: AuthCredentialsDto): Promise<void> {
-        const { username, password } = authCredentialsDto;
+  async createUser(authCredentialsDto: AuthCredentialsDto): Promise<void> {
+    const { username, password } = authCredentialsDto;
 
-        const user = this.create({ username, password });
+    const user = this.create({ username, password });
 
-        await this.save(user);
-    }
+    await this.save(user);
+  }
 }
