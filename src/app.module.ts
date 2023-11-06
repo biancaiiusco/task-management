@@ -21,9 +21,8 @@ import { AuthModule } from './auth/auth.module';
       entities: [Task, TasksRepository],
     }),
     AuthModule,
-
   ],
   providers: [TasksRepository],
   controllers: [TasksController],
 })
-export class AppModule { }
+export class AppModule {}
