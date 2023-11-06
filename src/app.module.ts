@@ -3,6 +3,7 @@ import { TasksModule } from './tasks/tasks.module';
 import { TasksController } from './tasks/tasks.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Task } from './tasks/task.entity';
+import { TasksRepository } from './tasks/tasks.repository';
 
 @Module({
   imports: [
@@ -16,10 +17,11 @@ import { Task } from './tasks/task.entity';
       database: 'tasks',
       autoLoadEntities: true,
       synchronize: true,
-      entities: [Task],
+      entities: [Task, TasksRepository],
     }),
 
   ],
+  providers: [TasksRepository],
   controllers: [TasksController],
 })
 export class AppModule { }
