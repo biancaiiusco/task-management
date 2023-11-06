@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { TaskStatus } from './task-status.enum.ts';
+import { TaskStatus } from './task-status.enum';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { TasksRepository } from './tasks.repository';
@@ -28,7 +28,7 @@ export class TasksService {
   }
 
   async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
-    return this.tasksRepository.createTask(createTaskDto);
+    return await this.tasksRepository.createTasks(createTaskDto);
   }
 
   async deleteTask(id: string): Promise<void> {
@@ -37,36 +37,15 @@ export class TasksService {
       throw new NotFoundException(`Task with ID "${id}" not found`);
     }
   }
-  // getAllTasks(): Task[] {
-  //   return this.tasks;
-  // }
 
-
-  // getTasksWithFilters(filterDto: GetTasksFilterDto): Task[] {
-  //   const{status, search} = filterDto;
-  //   let tasks = this.getAllTasks();
-
-  //   if(status){
-  //     tasks = tasks.filter((task)=> task.status === status);
-  //   }
-
-  //   if(search){
-  //     tasks = tasks.filter((task)=>{
-  //       if(task.title.includes(search)|| task.description.includes(search))
-  //         return true;
-
-  //       return false;
-  //     })
-
-  //   }
-
-  //   return tasks;
-  // }
+  async getTasks(filterDto: GetTasksFilterDto): Promise<Task[]> {
+    return await this.tasksRepository.getTasks(filterDto)
+  }
 
   async updateTaskStatus(id: string, status: TaskStatus): Promise<Task> {
     const task = await this.getTaskById(id);
     task.status = status;
-    
+
     await this.tasksRepository.save(task)
     return task;
   }

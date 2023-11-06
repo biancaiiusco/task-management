@@ -3,7 +3,6 @@ import { TasksModule } from './tasks/tasks.module';
 import { TasksController } from './tasks/tasks.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Task } from './tasks/task.entity';
-import { TasksRepository } from './tasks/tasks.repository';
 
 @Module({
   imports: [
@@ -14,12 +13,13 @@ import { TasksRepository } from './tasks/tasks.repository';
       port: 5432,
       username: 'postgres',
       password: 'postgres',
-      database: 'task-management',
+      database: 'tasks',
       autoLoadEntities: true,
       synchronize: true,
       entities: [Task],
     }),
+
   ],
   controllers: [TasksController],
 })
-export class AppModule {}
+export class AppModule { }
